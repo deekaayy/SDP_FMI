@@ -1,0 +1,43 @@
+#include <iostream>
+#include <stack>
+
+int main()
+{
+	char input[256];
+	std::cout << "Input the mathematical equation: \n";
+	std::cin.getline(input, 256);
+    std::stack<char> check_stack;
+	bool flag = true;
+	for (int i = 0; i < strlen(input) && flag; i++)
+	{
+		if (input[i] == '(' || input[i] == '[' || input[i] == '{') {
+			check_stack.push(input[i]);
+			continue;
+		}
+
+		if (check_stack.size() > 0) {
+			if (input[i] == ')' && check_stack.top() == '(') {
+				check_stack.pop(); continue;
+			}
+			if (input[i] == ']' && check_stack.top() == '[') {
+				check_stack.pop(); continue;
+			}
+			if (input[i] == '}' && check_stack.top() == '{') {
+				check_stack.pop(); continue;
+			}
+		}
+		else
+		{
+			flag = false;
+		}
+		
+	}
+	if (check_stack.size() != 0) {
+		flag = false;
+	}
+
+	if (flag) {
+		std::cout << "True";
+	}
+	else std::cout << "falshu";
+}
